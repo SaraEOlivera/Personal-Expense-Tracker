@@ -14,6 +14,11 @@ def agregar_gasto():
     lista_gastos.append(gasto)
     print("Importe ingresado correctamente.")
 
+def ver_gastos():
+    for i in range(len(lista_gastos)):
+        print(lista_gastos[i])
+
+
 def main():
     imprimir()
     while True:
@@ -21,7 +26,8 @@ def main():
         if opcion == 1:
             agregar_gasto()
         elif opcion == 2:
-            print("Acá se podrán ver los gastos")
+            print("Estos son los gastos ingresados: ")
+            ver_gastos()
         elif opcion == 3:
             print("Fin del programa")
             break
