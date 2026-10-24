@@ -15,8 +15,10 @@ def agregar_gasto():
     print("Importe ingresado correctamente.")
 
 def ver_gastos():
+    gasto = 0
     for i in range(len(lista_gastos)):
-        print(lista_gastos[i])
+        gasto += 1
+        print(f"Gasto {gasto}: {lista_gastos[i]}")
 
 
 def main():
