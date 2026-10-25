@@ -8,7 +8,8 @@ def imprimir():
     print("Opción 1 para agregar gasto")
     print("Opción 2 para ver los gastos ingresados")
     print("Opción 3 para eliminar uno de los gastos ingresados")
-    print("Opción 4 para salir del programa")
+    print("Opción 4 para modificar uno de los gastos ingresados")
+    print("Opción 5 para salir del programa")
 
 def agregar_gasto():
     gasto = float(input("Ingrese el importe del gasto: "))
@@ -23,7 +24,9 @@ def ver_gastos():
 
 
 def actualizar_gastos():
-    pass
+    gasto = int(input("Ingrese el num de gasto que quiere modificar: "))
+    modificado = float(input("Ingrese el nuevo importe: "))
+    lista_gastos[gasto-1] = modificado
 
 def eliminar_gastos():
     gasto = int(input("Ingrese el num de gasto que quiere eliminar: "))
@@ -40,8 +43,13 @@ def main():
             ver_gastos()
         elif opcion == 3:
             eliminar_gastos()
-            print("Gasto Eliminado")
+            print("Gasto Eliminado:")
+            ver_gastos()
         elif opcion == 4:
+            actualizar_gastos()
+            print("Gasto Modificado:")
+            ver_gastos()
+        elif opcion == 5:
             print("Fin del programa")
             break
         else:
