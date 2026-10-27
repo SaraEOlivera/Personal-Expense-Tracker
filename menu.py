@@ -12,23 +12,44 @@ def imprimir():
     print("Opción 5 para salir del programa")
 
 def agregar_gasto():
-    gasto = float(input("Ingrese el importe del gasto: "))
-    lista_gastos.append(gasto)
-    print("Importe ingresado correctamente.")
+    try:
+        gasto = float(input("Ingrese el importe del gasto: "))
+        if gasto <= 0:
+            raise ValueError("El importe de gasto no puede ser 0 o un numero negativo")
+        lista_gastos.append(gasto)
+        print("Importe ingresado correctamente.")
+    except ValueError:
+        print("Excribir los gastos de forma numérica y mayores a 0.")
+    except Exception as e:
+        print(f"{e}. Error.")
 
 def ver_gastos():
     gasto = 0
-    for i in range(len(lista_gastos)):
-        gasto += 1
-        print(f"Gasto {gasto}: {lista_gastos[i]}")
+    if len(lista_gastos) == 0:
+        print("No hay gastos registrados")
+    else:
+        for i in range(len(lista_gastos)):
+            gasto += 1
+            print(f"Gasto {gasto}: {lista_gastos[i]}")
 
 
 def actualizar_gastos():
-    gasto = int(input("Ingrese el num de gasto que quiere modificar: "))
-    modificado = float(input("Ingrese el nuevo importe: "))
-    lista_gastos[gasto-1] = modificado
+    if len(lista_gastos) == 0:
+        print("No hay gastos registrados")
+    try:
+        gasto = int(input("Ingrese el num de gasto que quiere modificar: "))
+        if gasto <= 0:
+            raise ValueError("El num de gasto no puede ser 0 o un numero negativo")
+        modificado = float(input("Ingrese el nuevo importe: "))
+        if modificado <= 0:
+            raise ValueError("El gasto no puede ser inferior a 0.")
+        lista_gastos[gasto-1] = modificado
+    except ValueError:
+        print("Ingresar datos de forma numérica y mayores a 0")
 
 def eliminar_gastos():
+    if len(lista_gastos) == 0:
+        print("No hay gastos registrados")
     while True:
         try:
             gasto = int(input("Ingrese el num de gasto que quiere eliminar: "))
@@ -60,7 +81,7 @@ def main():
                 ver_gastos()
             elif opcion == 4:
                 actualizar_gastos()
-                print("Gasto Modificado:")
+                # print("Gasto Modificado:")
                 ver_gastos()
             elif opcion == 5:
                 print("Fin del programa")
