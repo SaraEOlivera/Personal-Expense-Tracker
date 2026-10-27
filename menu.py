@@ -38,6 +38,8 @@ def eliminar_gastos():
             else:
                 lista_gastos.pop(gasto-1)
                 break
+        except ValueError:
+            print("No ingreso un numero de gasto")
         except Exception as e:
             print("Error. No se ingresó un número")
 
