@@ -29,31 +29,45 @@ def actualizar_gastos():
     lista_gastos[gasto-1] = modificado
 
 def eliminar_gastos():
-    gasto = int(input("Ingrese el num de gasto que quiere eliminar: "))
-    lista_gastos.pop(gasto-1)
+    while True:
+        try:
+            gasto = int(input("Ingrese el num de gasto que quiere eliminar: "))
+            if gasto <= 0 or gasto > len(lista_gastos):
+                print("Ingreso un numero de gasto incorrecto.")
+                break
+            else:
+                lista_gastos.pop(gasto-1)
+                break
+        except Exception as e:
+            print("Error. No se ingresó un número")
+
 
 def main():
     imprimir()
     while True:
-        opcion = int(input("Ingrese una opcion: "))
-        if opcion == 1:
-            agregar_gasto()
-        elif opcion == 2:
-            print("Estos son los gastos ingresados: ")
-            ver_gastos()
-        elif opcion == 3:
-            eliminar_gastos()
-            print("Gasto Eliminado:")
-            ver_gastos()
-        elif opcion == 4:
-            actualizar_gastos()
-            print("Gasto Modificado:")
-            ver_gastos()
-        elif opcion == 5:
-            print("Fin del programa")
-            break
-        else:
-            print("Error. Ingrese una opción correcta.")
+        try:
+            opcion = int(input("Ingrese una opcion del menú: "))
+            if opcion == 1:
+                agregar_gasto()
+            elif opcion == 2:
+                print("Estos son los gastos ingresados: ")
+                ver_gastos()
+            elif opcion == 3:
+                eliminar_gastos()
+                # print("Gasto Eliminado:")
+                ver_gastos()
+            elif opcion == 4:
+                actualizar_gastos()
+                print("Gasto Modificado:")
+                ver_gastos()
+            elif opcion == 5:
+                print("Fin del programa")
+                break
+            else:
+                print("Error. Ingrese una opción correcta.")
+        except ValueError:
+            print("Opción incorrecta. Ingrese una opción del menú.")
+
 
 if __name__ == "__main__":
     main()
