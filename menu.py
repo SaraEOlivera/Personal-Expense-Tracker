@@ -46,13 +46,6 @@ def actualizar_gastos():
                     nuevo_detalle = input("Cual es el nuevo detalle? ")
                     lista_gastos[nuevo_detalle] = lista_gastos.pop(detalle)
                     print("Detalle modificado")
-            # gasto = int(input("Ingrese el num de gasto que quiere modificar: "))
-            # if gasto <= 0:
-            #     raise ValueError("El num de gasto no puede ser 0 o un numero negativo")
-            # modificado = float(input("Ingrese el nuevo importe: "))
-            # if modificado <= 0:
-            #     raise ValueError("El gasto no puede ser inferior a 0.")
-            # lista_gastos[gasto-1] = modificado
     except ValueError:
         print("Ingresar datos de forma numérica y mayores a 0")
 
