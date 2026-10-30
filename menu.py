@@ -34,20 +34,26 @@ def ver_gastos():
             print(f"{x}: {y}")
 
 def actualizar_gastos():
-    try:
-        if len(lista_gastos) == 0:
-            print("No hay datos para modificar")
-            return
+    if len(lista_gastos) == 0:
+        print("No hay datos para modificar")
+        return
+    else: 
+        detalle = input("Que gasto queres modificar? ")
+        if detalle in lista_gastos:
+            nuevo_detalle = input(("Cual es el nuevo detalle? Si es el mismo escribilo nuevamente "))
+            if nuevo_detalle.isalpha():
+                lista_gastos[nuevo_detalle] = lista_gastos.pop(detalle)
+            else:
+                print("El detalle no debe ser numerico")
+                return
+            try:
+                nuevo_gasto = float(input("Cual es el nuevo gasto? Si es el mismo escribilo nuevamente "))
+                lista_gastos[nuevo_detalle]= nuevo_gasto
+            except ValueError:
+                print("El gasto debe ser numerico")
         else:
-            respuesta = int(input("Ingresa 1 para modificar detalle 2 para modificar gasto "))
-            if respuesta == 1:
-                detalle = input("Que gasto queres modificar? ")
-                if detalle in lista_gastos:
-                    nuevo_detalle = input("Cual es el nuevo detalle? ")
-                    lista_gastos[nuevo_detalle] = lista_gastos.pop(detalle)
-                    print("Detalle modificado")
-    except ValueError:
-        print("Ingresar datos de forma numérica y mayores a 0")
+            print("Ese detalle no está registrado")
+
 
 def eliminar_gastos():
     while True:
