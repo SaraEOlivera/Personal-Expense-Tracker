@@ -54,7 +54,6 @@ def actualizar_gastos():
         else:
             print("Ese detalle no está registrado")
 
-
 def eliminar_gastos():
     while True:
         try:
@@ -79,7 +78,6 @@ def eliminar_gastos():
             print("No ingreso un numero de gasto")
         except Exception as e:
             print("Error. No se ingresó un número")
-
 
 def main():
     imprimir()
@@ -106,7 +104,6 @@ def main():
                 print("Error. Ingrese una opción correcta.")
         except ValueError:
             print("Opción incorrecta. Ingrese una opción del menú.")
-
 
 if __name__ == "__main__":
     main()
