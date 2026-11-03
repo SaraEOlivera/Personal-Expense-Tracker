@@ -1,3 +1,3 @@
-Almacen, 2500, Alimentos
-Supermercado, 4550, Alimentos
-Farmacia, 3200, Salud
+Supermercado,     1200,     Alimentos
+Farmacia,     2100,     Salud
+Veterinario,     2000,     Mascota

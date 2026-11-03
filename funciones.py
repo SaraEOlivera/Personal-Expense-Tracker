@@ -40,16 +40,21 @@ def actualizar_gastos(lista):
     print("Modificar un gasto - solo el importe")
     try:
         detalle_ingresado = input("Que gasto queres modificar? ")
-        # categoria_ingresada = input("Ingrese la categoria ")
         if detalle_ingresado.isnumeric():
             print("Debe ingresar texto")
             return
-        if detalle_ingresado in lista:
-            print("Gasto modificado")
-        else: 
-            print("Ese gasto no está registrado")
-            return
         nuevo_importe = int(input("Ingrese el nuevo importe: "))
+        encontrado = True
+        for i in range(len(lista)):
+            if detalle_ingresado in lista[i]:
+                encontrado = True
+            else:
+                encontrado = False
+        if encontrado:
+            print("Gasto modificado")
+        else:
+            print("Gasto no registrado")
+            return
         if nuevo_importe <= 0:
             print("El importe de gasto no puede ser 0 o un numero negativo")
             return

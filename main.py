@@ -1,4 +1,3 @@
-import subprocess
 import funciones
 
 def main():
