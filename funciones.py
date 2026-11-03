@@ -7,6 +7,7 @@ def ver_gastos(lista):
     if len(lista) == 0:
         print("No hay gastos registrados")
     else:
+        print("**********************************")
         print("Estos son los gastos registrados:")
         for gasto in lista:
             datos = gasto.split(",")
@@ -37,22 +38,33 @@ def agregar_gasto():
 
 def actualizar_gastos(lista):
     print("Modificar un gasto - solo el importe")
-    detalle_ingresado = input("Que gasto queres modificar? ")
-    nuevo_importe = input("Ingrese el nuevo importe: ")
-    categoria_ingresada = input("Ingrese la categoria ")
-
-    with open("gastos.txt", "w") as archivo:
-        for gasto in lista:
-            datos = gasto.split(",")
-            detalle = datos[0]
-            importe = datos[1]
-            categoria = datos[2]
-            if detalle_ingresado == detalle:
-                producto_modificado = f"{detalle}, {nuevo_importe}, {categoria}\n"
-                archivo.write(producto_modificado)
-            else:
-                producto = f"{detalle}, {importe}, {categoria}\n"
-                archivo.write(producto)
+    try:
+        detalle_ingresado = input("Que gasto queres modificar? ")
+        # categoria_ingresada = input("Ingrese la categoria ")
+        if detalle_ingresado.isnumeric():
+            print("Debe ingresar texto")
+            return
+        nuevo_importe = int(input("Ingrese el nuevo importe: "))
+        if nuevo_importe <= 0:
+            print("El importe de gasto no puede ser 0 o un numero negativo")
+            return
+        with open("gastos.txt", "w") as archivo:
+            for gasto in lista:
+                datos = gasto.split(",")
+                detalle = datos[0]
+                importe = datos[1]
+                categoria = datos[2]
+                if detalle_ingresado == detalle:
+                    producto_modificado = f"{detalle}, {nuevo_importe}, {categoria}\n"
+                    archivo.write(producto_modificado)
+                else:
+                    print("Ese gasto no está registrado")
+                    producto = f"{detalle}, {importe}, {categoria}\n"
+                    archivo.write(producto)
+    except ValueError:
+        print("Escribir los gastos de forma numérica y mayores a 0.")
+    except Exception as e:
+        print(f"{e}. Error.")
 
 def eliminar_gastos(lista):
     if len(lista) == 0:
