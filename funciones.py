@@ -20,6 +20,9 @@ def agregar_gasto():
     try:
         detalle = input("Ingrese el detalle del gasto: ")
         categoria = input("Ingrese categoria del gasto: ")
+        if detalle.isnumeric() or categoria.isnumeric():
+            print("Debe ingresar texto")
+            return
         importe = int(input("Ingrese el importe del gasto: "))
         if importe <= 0:
             print("El importe de gasto no puede ser 0 o un numero negativo")

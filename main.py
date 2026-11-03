@@ -21,7 +21,7 @@ def main():
             case 3: funciones.eliminar_gastos(lista_gastos)
             case 0: salir = True
             case _: salir = True
-        subprocess.run(["cls"], shell=True)
+        # subprocess.run(["cls"], shell=True)
     print("Fin del programa")
 
 if __name__ == "__main__":

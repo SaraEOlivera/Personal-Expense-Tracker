@@ -1,7 +1,7 @@
-taxi,  1200,  viajes
-gas,  23000,  impuestos
-farmacia,  820,  salud
-almacen,  820,  comida
-supermercado,  820,  comida
-cuota, 1400,  impuesto
-diario,   1000,   libros
+taxi,      1200,      viajes
+farmacia,      820,      salud
+supermercado,      820,      comida
+cuota,     1400,      impuesto
+diario, 40,       libros
+100, 100, 100
+100, 100, 100
