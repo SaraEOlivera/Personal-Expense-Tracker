@@ -73,12 +73,16 @@ def eliminar_gastos(lista):
     else:
         print("Eliminar un gasto")
         detalle_ingresado = input("Qué gasto quiere eliminar: ")
+        if detalle_ingresado in lista:
+            print("gasto elimiando")
         with open("gastos.txt", "w") as archivo:
-            for gasto in lista:
-                datos = gasto.split(",")
-                detalle = datos[0]
-                if detalle_ingresado != detalle:
-                    archivo.write(gasto + "\n")
+                for gasto in lista:
+                    datos = gasto.split(",")
+                    detalle = datos[0]
+                    if detalle_ingresado != detalle:
+                        print("Ese gasto no está registrado")
+                        archivo.write(gasto + "\n")
+
 
 
 # def ver_gastos():

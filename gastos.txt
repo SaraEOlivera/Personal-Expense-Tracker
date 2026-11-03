@@ -1,4 +1,2 @@
-taxi,             1200,             viajes
-farmacia,             820,             salud
-supermercado,             820,             comida
-cuota,   1500,             impuesto
+Almacen, 2500, Alimentos
+Farmacia, 780, Salud
