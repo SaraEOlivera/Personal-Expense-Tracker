@@ -1,3 +1,0 @@
-Supermercado,  4100,               Alimentos
-Farmacia,         3500,               Salud
-Cuadernos, 4800, Libreria

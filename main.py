@@ -13,6 +13,7 @@ def main():
                 print("1. Agregar gasto")
                 print("2. Modificar un gasto")
                 print("3. Eliminar un gasto")
+                print("4. Calcular total de gastos")
                 print("0. Salir")
 
                 opcion = int(input("Ingrese una opcion del menú: "))
@@ -20,6 +21,7 @@ def main():
                     case 1: funciones.agregar_gasto()
                     case 2: funciones.actualizar_gastos(lista_gastos)
                     case 3: funciones.eliminar_gastos(lista_gastos)
+                    case 4: funciones.calcular_total(lista_gastos)
                     case 0: salir = True
                     case _: salir = True
             except ValueError:

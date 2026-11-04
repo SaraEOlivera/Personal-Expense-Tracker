@@ -92,5 +92,18 @@ def eliminar_gastos(lista):
             print("Gasto eliminado")
         else:
             print("Gasto no registrado")
-        
+
+def calcular_total(lista):
+    if len(lista) == 0:
+        print("No hay gastos registrados para sumar")
+    else:
+        print("**********************************")
+        print("Este es el total de tus gastos registrados:")
+        suma = 0
+        for gasto in lista:
+            datos = gasto.split(",")
+            importe = datos[1]
+            importe_numero = float(importe)
+            suma += importe_numero
+    print(f"Total: {suma}")
 
