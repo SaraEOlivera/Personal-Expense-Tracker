@@ -44,20 +44,11 @@ def actualizar_gastos(lista):
             print("Debe ingresar texto")
             return
         nuevo_importe = int(input("Ingrese el nuevo importe: "))
-        encontrado = True
-        for i in range(len(lista)):
-            if detalle_ingresado in lista[i]:
-                encontrado = True
-            else:
-                encontrado = False
-        if encontrado:
-            print("Gasto modificado")
-        else:
-            print("Gasto no registrado")
-            return
+
         if nuevo_importe <= 0:
             print("El importe de gasto no puede ser 0 o un numero negativo")
             return
+        encontrado = False
         with open("gastos.txt", "w") as archivo:
             for gasto in lista:
                 datos = gasto.split(",")
@@ -65,11 +56,16 @@ def actualizar_gastos(lista):
                 importe = datos[1]
                 categoria = datos[2]
                 if detalle_ingresado == detalle:
+                    encontrado = True
                     producto_modificado = f"{detalle}, {nuevo_importe}, {categoria}\n"
                     archivo.write(producto_modificado)
                 else:
                     producto = f"{detalle}, {importe}, {categoria}\n"
                     archivo.write(producto)
+        if encontrado:
+            print("Gasto modificado")
+        else:
+            print("Ese gasto no está registrado")
     except ValueError:
         print("Escribir los gastos de forma numérica y mayores a 0.")
     except Exception as e:
@@ -82,21 +78,19 @@ def eliminar_gastos(lista):
     else:
         print("Eliminar un gasto")
         detalle_ingresado = input("Qué gasto quiere eliminar: ")
-        encontrado = True
-        for i in range(len(lista)):
-            if detalle_ingresado in lista[i]:
-                encontrado = True
-            else:
-                encontrado = False
-        if encontrado:
-            print("Gasto eliminado")
-        else:
-            print("Gasto no registrado")
 
+        encontrado = False
         with open("gastos.txt", "w") as archivo:
                 for gasto in lista:
                     datos = gasto.split(",")
                     detalle = datos[0]
                     if detalle_ingresado != detalle:
                         archivo.write(gasto + "\n")
+                    else:
+                        encontrado = True
+        if encontrado:
+            print("Gasto eliminado")
+        else:
+            print("Gasto no registrado")
+        
 
