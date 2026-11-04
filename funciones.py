@@ -96,6 +96,7 @@ def eliminar_gastos(lista):
 def calcular_total(lista):
     if len(lista) == 0:
         print("No hay gastos registrados para sumar")
+        return
     else:
         print("**********************************")
         print("Este es el total de tus gastos registrados:")
@@ -107,3 +108,15 @@ def calcular_total(lista):
             suma += importe_numero
     print(f"Total: {suma}")
 
+
+def agrupar_categorias(lista):
+    if len(lista) == 0:
+        print("No hay gastos registrados")
+    else:
+        print("**********************************")
+        print("Estos son los gastos por categorías:")
+        for gasto in lista:
+            datos = gasto.split(",")
+            importe = datos[1]
+            categoria = datos[2]
+            print(f"{categoria}: {importe}")
