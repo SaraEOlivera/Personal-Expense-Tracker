@@ -3,3 +3,4 @@ Farmacia, 2000, Salud
 Consulta, 2100, Salud
 Sesion, 4000, Salud
 Almacen, 3500, Alimentos
+Veterinario, 1800, Mascota

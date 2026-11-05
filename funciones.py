@@ -108,15 +108,31 @@ def calcular_total(lista):
             suma += importe_numero
     print(f"Total: {suma}")
 
-
 def agrupar_categorias(lista):
     if len(lista) == 0:
         print("No hay gastos registrados")
     else:
         print("**********************************")
         print("Estos son los gastos por categorías:")
+        lista_importes = []
+        lista_categorias = []
         for gasto in lista:
             datos = gasto.split(",")
             importe = datos[1]
             categoria = datos[2]
-            print(f"{categoria}: {importe}")
+            lista_importes.append(importe)
+            lista_categorias.append(categoria)
+    
+        dic_categorias = {}
+        for indice, categoria in enumerate(lista_categorias):
+            importe = lista_importes[indice]
+
+            if categoria in dic_categorias:
+                dic_categorias[categoria] += importe
+            else: 
+                dic_categorias[categoria] = importe
+
+        for categoria, importe in dic_categorias.items():
+            print(f"{categoria}: ${importe}")
+
+
