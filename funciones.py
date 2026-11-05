@@ -120,8 +120,9 @@ def agrupar_categorias(lista):
             datos = gasto.split(",")
             importe = datos[1]
             categoria = datos[2]
-            lista_importes.append(importe)
-            lista_categorias.append(categoria)
+            lista_importes.append(int(importe))
+            lista_categorias.append(categoria.title())
+            
     
         dic_categorias = {}
         for indice, categoria in enumerate(lista_categorias):
