@@ -1,13 +1,16 @@
 # Registro Personal de Gastos
 
 
+
 ## Descripción:
 
 Aplicación de consola que registra y administa en un archivo de tipo txt, todos los gastos personales que se agreguen. La aplicación permite agregar, ver, modificar y eliminar los gastos registrados. A su vez, permite visualizar la suma total de los gastos y agruparlos por categorías. 
 
+
 ## Objetivo:
 
 El proyecto tiene como objetivo implementar conocimientos del lenguaje Python con el fin de fortalecer el aprendizaje. El proyecto evolucionará en diferentes versiones, siendo ésta la versión inicial. 
+
 
 
 ## Funcionalidades:
@@ -21,15 +24,19 @@ La aplicación cuenta con
   - Función para sumar el importe de los gastos registrados.
   - Función para agrupar los gastos registrados según categorías.
 
+
 ## Tecnologías empleadas:
 
 - **Python 3.11.2**
 - **Archivo de texto para el almacenamiento de los datos**
 
 
+
 ## Requisitos:
 
 Antes de comenzar es necesario tener instalado [Python](https://www.python.org/downloads/) 3.8 o superior (desarrollado originalmente en Python 3.11).
+
+
 
 ## Instalación:
 
@@ -45,13 +52,17 @@ git clone https://github.com/SaraEOlivera/Personal-Expense-Tracker
 python main.py
 ```
 
-# Functionamiento:
+
+
+# Funcionamiento:
 
 - La aplicación está pensada para que al ejecutar el proyecto, la consola muestre los gastos registrados, si los hubiere, y el menú con las opciónes disponibles.
 
 - Todos los gastos que se agreguen quedarán almacenados en el archivo gastos.txt.
 
 - La aplicación validará las entradas del usuario para que no se ingresen datos no válidos tales como texto en el campo de gastos. 
+
+
 
 
 ## Limitaciones:
@@ -63,6 +74,8 @@ Esta version no permite:
 - Modificar detalles o categorías de los gastos registrados.
 
 - Ninguna otra funcionalidad que no esté implementada en el programa.
+
+
 
 
 ## Mejoras y próximas versiones:
