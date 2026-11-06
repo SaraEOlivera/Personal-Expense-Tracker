@@ -1,9 +1,12 @@
-Supermercado, 1000, Alimentos
-Farmacia, 2000, Salud
-Consulta, 2100, Salud
-Sesion, 4000, Salud
-Almacen, 3500, Alimentos
-Veterinario, 1800, Mascota
-balanceado, 1000, mascota
-Vacunas, 2200, mascota
-kiosco, 5000, alimentos
+Supermercado,    1000,    Alimentos
+Farmacia,    2000,    Salud
+Consulta,    2100,    Salud
+Sesion,    4000,    Salud
+Almacen,    3500,    Alimentos
+Veterinario,    1800,    Mascota
+balanceado,    1000,    mascota
+Vacunas,    2200,    mascota
+Internet,   3000,    Impuestos y servicios
+cine , 1500, salidas
+Restaurant, 2000, Salidas
+Teatro, 2000, SALIDAS
