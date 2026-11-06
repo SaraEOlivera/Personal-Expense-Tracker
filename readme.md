@@ -4,7 +4,7 @@
 
 ## Descripción:
 
-Aplicación de consola que registra y administa en un archivo de tipo txt, todos los gastos personales que se agreguen. La aplicación permite agregar, ver, modificar y eliminar los gastos registrados. A su vez, permite visualizar la suma total de los gastos y agruparlos por categorías. 
+Aplicación de consola que registra y administra en un archivo de texto (.txt), todos los gastos personales que se agreguen. La aplicación permite agregar, ver, modificar y eliminar los gastos registrados. A su vez, permite visualizar la suma total de los gastos y agruparlos por categorías. 
 
 
 ## Objetivo:
@@ -15,7 +15,8 @@ El proyecto tiene como objetivo implementar conocimientos del lenguaje Python co
 
 ## Funcionalidades:
  
-La aplicación cuenta con
+La aplicación ofrece las siguientes funcionalidades:
+
   - Menú para acceder a las diferentes opciones.
   - Función para ver los gastos registrados. 
   - Función para agregar nuevos gastos. 
@@ -60,7 +61,7 @@ python main.py
 
 - Todos los gastos que se agreguen quedarán almacenados en el archivo gastos.txt.
 
-- La aplicación validará las entradas del usuario para que no se ingresen datos no válidos tales como texto en el campo de gastos. 
+- La aplicación validará las entradas del usuario para que no se ingresen datos no válidos como texto en campos numéricos o números en campos de texto. 
 
 
 
@@ -72,8 +73,6 @@ Esta version no permite:
 - Clasificar gastos por fechas.
 
 - Modificar detalles o categorías de los gastos registrados.
-
-- Ninguna otra funcionalidad que no esté implementada en el programa.
 
 
 
