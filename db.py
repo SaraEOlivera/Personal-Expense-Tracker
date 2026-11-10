@@ -1,12 +1,6 @@
 import sqlite3
 
-db = 'registro_gastos.db'
-
-tabla = [
-
-]
-
-def conexion():
+def crear_db():
     try:
         with sqlite3.connect('bd/registro_gastos.db') as conexion:
             cursor = conexion.cursor()
@@ -25,5 +19,14 @@ def conexion():
     except sqlite3.OperationalError as e:
         print(f"Error al crear la tabla {e}")
 
+def insertar_gasto(conexion, gasto):
+    sql = '''INSERT INTO gastos (detalle, importe, categoria, fecha)
+            VALUES(?, ?, ?, ?)'''
 
-conexion()
+    cur = conexion.cursor()
+    cur.execute(sql, gasto)
+    conexion.commit()
+
+    return cur.lastrowid
+
+crear_db()
