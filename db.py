@@ -19,14 +19,70 @@ def crear_db():
     except sqlite3.OperationalError as e:
         print(f"Error al crear la tabla {e}")
 
-def insertar_gasto(conexion, gasto):
-    sql = '''INSERT INTO gastos (detalle, importe, categoria, fecha)
-            VALUES(?, ?, ?, ?)'''
+def insertar_gasto(conexion, detalle, importe, categoria, fecha):
+    try:
+        cur = conexion.cursor()
+        cur.execute('''INSERT INTO gastos (detalle, importe, categoria, fecha)
+                VALUES(?, ?, ?, ?)''', (detalle, importe, categoria, fecha))
+        conexion.commit()
 
-    cur = conexion.cursor()
-    cur.execute(sql, gasto)
-    conexion.commit()
+        return cur.lastrowid
+    
+    except sqlite3.IntegrityError as e:
+        print(f"Error en la restriccion de integridad de la BD {e}")
+    except sqlite3.Error as e:
+        print(f"Error en la base de datos {e}")
 
-    return cur.lastrowid
+def ver_gastos():
+    try:
+        with sqlite3.connect("bd/registro_gastos.db") as conexion:
+            cur = conexion.cursor()
+            cur.execute('SELECT detalle, importe, categoria, fecha FROM gastos')
+            filas = cur.fetchall()
+            for fila in filas:
+                print(fila)
+    except sqlite3.OperationalError as e:
+        print(f"Error al ejecutar la operacion: {e}")
+    except sqlite3.Error as e:
+        print(f"Error en la base de datos {e}")
+
+def ver_un_gasto(detalle):
+    try:
+        with sqlite3.connect("bd/registro_gastos.db") as conexion:
+            cur = conexion.cursor()
+            cur.execute('SELECT detalle, importe, categoria, ' \
+            'fecha FROM gastos WHERE detalle = ?', (detalle,))
+            fila = cur.fetchone()
+            if fila:
+                print(fila)
+    except sqlite3.OperationalError as e:
+        print(f"Error al ejecutar la operacion: {e}")
+    except sqlite3.Error as e:
+        print(f"Error en la base de datos {e}")
+
+def actualizar_gasto(detalle, importe, categoria,fecha, detalle_nuevo):
+    try:
+        with sqlite3.connect("bd/registro_gastos.db") as conexion:   
+            cur = conexion.cursor()
+            cur.execute('''UPDATE gastos
+            SET  detalle=?, importe=?, categoria=?, fecha=?
+            WHERE detalle = ?  ''',( detalle, importe, categoria,fecha, detalle_nuevo))
+            conexion.commit()
+
+    except sqlite3.Error as e:
+        print(f"Error en la base de datos {e}")
+
+def eliminar_gasto(detalle):
+    try:
+        with sqlite3.connect("bd/registro_gastos.db") as conexion:   
+            cur = conexion.cursor()
+            cur.execute('''DELETE FROM gastos
+            WHERE detalle = ?  ''', (detalle,))
+            conexion.commit()
+    except sqlite3.Error as e:
+        print(f"Error en la base de datos {e}")
+
+
+
 
 crear_db()
