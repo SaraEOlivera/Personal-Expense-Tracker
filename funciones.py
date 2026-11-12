@@ -1,20 +1,39 @@
-def leer_archivo(lista):
-    with open("gastos.txt", "r") as archivo:
-        for linea in archivo:
-            lista.append(linea.strip())
+# def leer_archivo(lista):
+#     with open("gastos.txt", "r") as archivo:
+#         for linea in archivo:
+#             lista.append(linea.strip())
+import db
 
-def ver_gastos(lista):
-    if len(lista) == 0:
+def ver_gastos():
+    print("GASTOS REGISTRADOS")
+    lista = db.ver_gastos()
+    if not lista:
         print("No hay gastos registrados")
     else:
         print("**********************************")
         print("Estos son los gastos registrados:")
         for gasto in lista:
-            datos = gasto.split(",")
-            detalle = datos[0]
-            importe = datos[1]
-            categoria = datos[2]
-            print(f"{detalle}: {importe}")
+            detalle, importe, categoria, fecha = gasto
+            print(f"{detalle}: {importe} categoria: {categoria} - {fecha}")
+
+def ver_un_gasto():
+    print("VER GASTO REGISTRADO")
+    lista = db.ver_un_gasto(fecha_ingresada)
+    if not lista:
+        print("No hay gastos registrados")
+    else:
+        print("Ver gastos guardados en una fecha")
+        fecha_ingresada = input("Ingrese la fecha:")
+        if not fecha_ingresada:
+            print(f"No se registraron gastos el {fecha_ingresada}")
+        else:
+            print("**********************************")
+            print(f"Estos son los gastos registrados el {fecha_ingresada}:")
+            for gasto in lista:
+                detalle, importe, categoria, fecha = gasto
+                print(f"{detalle}: {importe} categoria: {categoria} - {fecha}")
+
+
 
 def agregar_gasto():
     print("Agregar gasto:")

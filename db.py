@@ -39,22 +39,21 @@ def ver_gastos():
             cur = conexion.cursor()
             cur.execute('SELECT detalle, importe, categoria, fecha FROM gastos')
             filas = cur.fetchall()
-            for fila in filas:
-                print(fila)
+            # for fila in filas:
+            #     print(fila)
+            return filas
     except sqlite3.OperationalError as e:
         print(f"Error al ejecutar la operacion: {e}")
     except sqlite3.Error as e:
         print(f"Error en la base de datos {e}")
 
-def ver_un_gasto(detalle):
+def ver_un_gasto(fecha):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:
             cur = conexion.cursor()
-            cur.execute('SELECT detalle, importe, categoria, ' \
-            'fecha FROM gastos WHERE detalle = ?', (detalle,))
-            fila = cur.fetchone()
-            if fila:
-                print(fila)
+            cur.execute('SELECT detalle, importe, categoria, fecha FROM gastos WHERE fecha = ?', (fecha,))
+            fila = cur.fetchall()
+            return fila
     except sqlite3.OperationalError as e:
         print(f"Error al ejecutar la operacion: {e}")
     except sqlite3.Error as e:
