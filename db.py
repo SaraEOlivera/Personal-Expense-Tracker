@@ -19,14 +19,15 @@ def crear_db():
     except sqlite3.OperationalError as e:
         print(f"Error al crear la tabla {e}")
 
-def insertar_gasto(conexion, detalle, importe, categoria, fecha):
+def insertar_gasto(detalle, importe, categoria, fecha):
     try:
-        cur = conexion.cursor()
-        cur.execute('''INSERT INTO gastos (detalle, importe, categoria, fecha)
-                VALUES(?, ?, ?, ?)''', (detalle, importe, categoria, fecha))
-        conexion.commit()
+        with sqlite3.connect("bd/registro_gastos.db") as conexion:
+            cur = conexion.cursor()
+            cur.execute('''INSERT INTO gastos (detalle, importe, categoria, fecha)
+                    VALUES(?, ?, ?, ?)''', (detalle, importe, categoria, fecha))
+            conexion.commit()
 
-        return cur.lastrowid
+            return cur.lastrowid
     
     except sqlite3.IntegrityError as e:
         print(f"Error en la restriccion de integridad de la BD {e}")
@@ -59,13 +60,13 @@ def ver_un_gasto(fecha):
     except sqlite3.Error as e:
         print(f"Error en la base de datos {e}")
 
-def actualizar_gasto(detalle, importe, categoria,fecha, detalle_nuevo):
+def actualizar_gasto(detalle_nuevo, importe, categoria, fecha, detalle):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:   
             cur = conexion.cursor()
             cur.execute('''UPDATE gastos
             SET  detalle=?, importe=?, categoria=?, fecha=?
-            WHERE detalle = ?  ''',( detalle, importe, categoria,fecha, detalle_nuevo))
+            WHERE detalle = ?  ''',( detalle_nuevo, importe, categoria, fecha, detalle))
             conexion.commit()
 
     except sqlite3.Error as e:
