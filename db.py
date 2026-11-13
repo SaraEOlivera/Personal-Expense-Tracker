@@ -68,7 +68,7 @@ def actualizar_gasto(detalle_nuevo, importe, categoria, fecha, detalle):
             SET  detalle=?, importe=?, categoria=?, fecha=?
             WHERE detalle = ?  ''',( detalle_nuevo, importe, categoria, fecha, detalle))
             conexion.commit()
-
+        print(f"{cur.rowcount} filas modificadas")
     except sqlite3.Error as e:
         print(f"Error en la base de datos {e}")
 

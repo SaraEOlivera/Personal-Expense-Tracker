@@ -62,7 +62,7 @@ def actualizar_gastos():
     print("MODIFICAR UN GASTO")
     try:
         detalle = input("Que gasto queres modificar? ")
-        if not detalle:
+        if not detalle.strip():
             print(f"Ingresó campo vacío")
             return
         if detalle.isnumeric():
@@ -71,7 +71,7 @@ def actualizar_gastos():
 
         nuevo_detalle = input("Ingrese o reescriba el detalle: ")
         nueva_categoria = input("Ingrese o reescriba la categoria: ")
-        if not nuevo_detalle or not nueva_categoria:
+        if not nuevo_detalle.strip() or not nueva_categoria.strip():
             print(f"Ingresó campo vacío")
             return
         if nuevo_detalle.isnumeric() or nueva_categoria.isnumeric():
