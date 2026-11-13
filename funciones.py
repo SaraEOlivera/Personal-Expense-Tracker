@@ -34,9 +34,8 @@ def ver_un_gasto():
                 print(f"{detalle}: {importe} categoria: {categoria} - {fecha}")
 
 
-
 def agregar_gasto():
-    print("Agregar gasto:")
+    print("AGREGAR GASTO:")
     try:
         detalle = input("Ingrese el detalle del gasto: ")
         categoria = input("Ingrese categoria del gasto: ")
