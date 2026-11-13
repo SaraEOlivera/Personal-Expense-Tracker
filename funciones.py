@@ -1,7 +1,4 @@
-# def leer_archivo(lista):
-#     with open("gastos.txt", "r") as archivo:
-#         for linea in archivo:
-#             lista.append(linea.strip())
+from datetime import date
 import db
 
 def ver_gastos():
@@ -18,79 +15,86 @@ def ver_gastos():
 
 def ver_un_gasto():
     print("VER GASTO REGISTRADO")
-    lista = db.ver_un_gasto(fecha_ingresada)
-    if not lista:
-        print("No hay gastos registrados")
+    fecha_ingresada = input("Ingrese la fecha:")
+    if not fecha_ingresada:
+        print(f"{fecha_ingresada} no es un dato correcto")
+        return
     else:
-        print("Ver gastos guardados en una fecha")
-        fecha_ingresada = input("Ingrese la fecha:")
-        if not fecha_ingresada:
-            print(f"No se registraron gastos el {fecha_ingresada}")
+        lista = db.ver_un_gasto(fecha_ingresada)
+        print("**********************************")
+        print(f"Estos son los gastos registrados el {fecha_ingresada}:")
+        if not lista:
+                print(f"No hay gastos registrados el {fecha_ingresada}")
         else:
-            print("**********************************")
-            print(f"Estos son los gastos registrados el {fecha_ingresada}:")
             for gasto in lista:
                 detalle, importe, categoria, fecha = gasto
                 print(f"{detalle}: {importe} categoria: {categoria} - {fecha}")
 
-
 def agregar_gasto():
-    print("AGREGAR GASTO:")
+    print("AGREGAR UN GASTO:")
     try:
         detalle = input("Ingrese el detalle del gasto: ")
         categoria = input("Ingrese categoria del gasto: ")
-        if detalle.isnumeric() or categoria.isnumeric():
+        if not detalle or not categoria:
+            print(f"Ingresó campo vacío")
+            return
+        elif detalle.isnumeric() or categoria.isnumeric():
             print("Debe ingresar texto")
             return
-        importe = int(input("Ingrese el importe del gasto: "))
+        importe = float(input("Ingrese el importe del gasto: "))
         if importe <= 0:
             print("El importe de gasto no puede ser 0 o un numero negativo")
             return
-        nuevo_gasto = f"{detalle}, {importe}, {categoria}\n"
-        with open("gastos.txt", "a") as archivo:
-            archivo.write(nuevo_gasto)
+        fecha = input("Ingrese la fecha del gasto (YYYY-MM-DD): ").strip()
+        try:
+            fecha_ingresada = date.fromisoformat(fecha)
+        except ValueError:
+            print("Ingrese fecha con formato YYYY-MM-DD")
+            return
+        db.insertar_gasto(detalle, importe, categoria, fecha_ingresada)
+        print(f"Gasto {detalle} registrado")
     except ValueError:
         print("Escribir los gastos de forma numérica y mayores a 0.")
     except Exception as e:
         print(f"{e}. Error.")
 
-def actualizar_gastos(lista):
-    print("Modificar un gasto - solo el importe")
-    if len(lista) == 0:
-        print("No hay gastos registrados para modificar.")
-    else:
-        try:
-            detalle_ingresado = input("Que gasto queres modificar? ")
-            if detalle_ingresado.isnumeric():
-                print("Debe ingresar texto")
-                return
-            nuevo_importe = int(input("Ingrese el nuevo importe: "))
+def actualizar_gastos():
+    print("MODIFICAR UN GASTO")
+    try:
+        detalle = input("Que gasto queres modificar? ")
+        if not detalle:
+            print(f"Ingresó campo vacío")
+            return
+        if detalle.isnumeric():
+            print("Debe ingresar texto")
+            return
 
-            if nuevo_importe <= 0:
-                print("El importe de gasto no puede ser 0 o un numero negativo")
-                return
-            encontrado = False
-            with open("gastos.txt", "w") as archivo:
-                for gasto in lista:
-                    datos = gasto.split(",")
-                    detalle = datos[0]
-                    importe = datos[1]
-                    categoria = datos[2]
-                    if detalle_ingresado == detalle:
-                        encontrado = True
-                        producto_modificado = f"{detalle}, {nuevo_importe}, {categoria}\n"
-                        archivo.write(producto_modificado)
-                    else:
-                        producto = f"{detalle}, {importe}, {categoria}\n"
-                        archivo.write(producto)
-            if encontrado:
-                print("Gasto modificado")
-            else:
-                print("Ese gasto no está registrado")
+        nuevo_detalle = input("Ingrese o reescriba el detalle: ")
+        nueva_categoria = input("Ingrese o reescriba la categoria: ")
+        if not nuevo_detalle or not nueva_categoria:
+            print(f"Ingresó campo vacío")
+            return
+        if nuevo_detalle.isnumeric() or nueva_categoria.isnumeric():
+            print("Debe ingresar texto")
+            return
+        nuevo_importe = float(input("Ingrese el nuevo importe: "))
+        if nuevo_importe <= 0:
+            print("El importe de gasto no puede ser 0 o un numero negativo")
+            return
+        nueva_fecha = input("Ingrese la fecha del gasto (YYYY-MM-DD): ").strip()
+        try:
+            fecha_ingresada = date.fromisoformat(nueva_fecha)
         except ValueError:
-            print("Escribir los gastos de forma numérica y mayores a 0.")
-        except Exception as e:
-            print(f"{e}. Error.")
+            print("Ingrese fecha con formato YYYY-MM-DD")
+            return
+        
+        db.actualizar_gasto(nuevo_detalle, nuevo_importe, nueva_categoria, fecha_ingresada, detalle)
+        
+
+    except ValueError:
+        print("Escribir los gastos de forma numérica y mayores a 0.")
+    except Exception as e:
+        print(f"{e}. Error.")
 
 def eliminar_gastos(lista):
     if len(lista) == 0:
