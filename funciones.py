@@ -96,27 +96,20 @@ def actualizar_gastos():
     except Exception as e:
         print(f"{e}. Error.")
 
-def eliminar_gastos(lista):
-    if len(lista) == 0:
-        print("No hay gastos para eliminar")
-        return
-    else:
-        print("Eliminar un gasto")
+def eliminar_gastos():
+    print("ELIMINAR UN GASTO")
+    try:
         detalle_ingresado = input("Qué gasto quiere eliminar: ")
+        if not detalle_ingresado.strip():
+            print(f"Ingresó campo vacío")
+            return
+        if detalle_ingresado.isnumeric():
+            print("Debe ingresar texto")
+            return
+        db.eliminar_gasto(detalle_ingresado)
+    except Exception as e:
+        print(f"{e}. Error.")
 
-        encontrado = False
-        with open("gastos.txt", "w") as archivo:
-                for gasto in lista:
-                    datos = gasto.split(",")
-                    detalle = datos[0]
-                    if detalle_ingresado != detalle:
-                        archivo.write(gasto + "\n")
-                    else:
-                        encontrado = True
-        if encontrado:
-            print("Gasto eliminado")
-        else:
-            print("Gasto no registrado")
 
 def calcular_total(lista):
     if len(lista) == 0:

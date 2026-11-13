@@ -79,6 +79,7 @@ def eliminar_gasto(detalle):
             cur.execute('''DELETE FROM gastos
             WHERE detalle = ?  ''', (detalle,))
             conexion.commit()
+            print(f"{cur.rowcount} filas modificadas")
     except sqlite3.Error as e:
         print(f"Error en la base de datos {e}")
 
