@@ -86,4 +86,3 @@ def eliminar_gasto(detalle):
 
 
 
-crear_db()

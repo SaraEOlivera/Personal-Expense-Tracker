@@ -106,41 +106,40 @@ def eliminar_gastos():
         if detalle_ingresado.isnumeric():
             print("Debe ingresar texto")
             return
+        detalle_ingresado = detalle_ingresado.strip()
         db.eliminar_gasto(detalle_ingresado)
     except Exception as e:
         print(f"{e}. Error.")
 
-
-def calcular_total(lista):
-    if len(lista) == 0:
-        print("No hay gastos registrados para sumar")
-        return
+def calcular_total():
+    print("CALCULAR TOTAL DE GASTOS")
+    lista = db.ver_gastos()
+    if not lista:
+        print("No hay gastos registrados para calcular")
     else:
         print("**********************************")
-        print("Este es el total de tus gastos registrados:")
+        print("Total de gastos registrados:")
         suma = 0
         for gasto in lista:
-            datos = gasto.split(",")
-            importe = datos[1]
-            importe_numero = float(importe)
-            suma += importe_numero
-    print(f"Total: {suma}")
+            detalle, importe, categoria, fecha = gasto
+            suma += importe
+        print(f"Total: {suma}")
 
-def agrupar_categorias(lista):
-    if len(lista) == 0:
-        print("No hay gastos registrados")
+def agrupar_categorias():
+    print("AGRUPAR GASTOS SEGÚN CATEGORÍA")
+    lista = db.ver_gastos()
+    if not lista:
+        print("No hay gastos registrados para calcular")
     else:
         print("**********************************")
-        print("Estos son los gastos por categorías:")
+        print("Gastos Y Categorías:")
+
         lista_importes = []
         lista_categorias = []
         for gasto in lista:
-            datos = gasto.split(",")
-            importe = datos[1]
-            categoria = datos[2]
-            lista_importes.append(int(importe))
+            detalle, importe, categoria, fecha = gasto
+            lista_importes.append(importe)
             lista_categorias.append(categoria.title())
-            
     
         dic_categorias = {}
         for indice, categoria in enumerate(lista_categorias):
