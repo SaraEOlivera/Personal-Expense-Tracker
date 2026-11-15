@@ -1,4 +1,5 @@
 from datetime import date
+from datetime import datetime
 import db
 
 def ver_gastos():
@@ -30,13 +31,16 @@ def ver_un_gasto():
                 detalle, importe, categoria, fecha = gasto
                 print(f"{detalle}: {importe} categoria: {categoria} - {fecha}")
 
-def agregar_gasto():
+def agregar_gasto(anio_min:int, anio_max:int)-> str:
     print("AGREGAR UN GASTO:")
     try:
-        detalle = input("Ingrese el detalle del gasto: ")
-        categoria = input("Ingrese categoria del gasto: ")
+        detalle = input("Ingrese el detalle del gasto: ").strip()
+        categoria = input("Ingrese categoria del gasto: ").strip()
         if not detalle or not categoria:
             print(f"Ingresó campo vacío")
+            return
+        elif not detalle.isalpha() or not categoria.isalpha():
+            print("No ingresar caracteres especiales")
             return
         elif detalle.isnumeric() or categoria.isnumeric():
             print("Debe ingresar texto")
@@ -45,13 +49,18 @@ def agregar_gasto():
         if importe <= 0:
             print("El importe de gasto no puede ser 0 o un numero negativo")
             return
-        fecha = input("Ingrese la fecha del gasto (YYYY-MM-DD): ").strip()
+        fecha = input(f"Ingrese la fecha del gasto (DD/MM/YYYY) entre {anio_min} y {anio_max}: ").strip()
         try:
-            fecha_ingresada = date.fromisoformat(fecha)
+            fecha_ingresada = datetime.strptime(fecha, "%d/%m/%Y")
+            # fecha_ingresada = date.fromisoformat(fecha)
+            if not (anio_min <= fecha_ingresada.year <= anio_max):
+                print(f"El año debe ser entre {anio_min} y {anio_max}")
+                return
+            fecha_modificada = fecha_ingresada.strftime("%Y/%m/%d")
         except ValueError:
-            print("Ingrese fecha con formato YYYY-MM-DD")
+            print("Ingrese fecha con formato DD/MM/YYYY")
             return
-        db.insertar_gasto(detalle, importe, categoria, fecha_ingresada)
+        db.insertar_gasto(detalle, importe, categoria, fecha_modificada)
         print(f"Gasto {detalle} registrado")
     except ValueError:
         print("Escribir los gastos de forma numérica y mayores a 0.")
@@ -99,15 +108,24 @@ def actualizar_gastos():
 def eliminar_gastos():
     print("ELIMINAR UN GASTO")
     try:
-        detalle_ingresado = input("Qué gasto quiere eliminar: ")
+        detalle_ingresado = input("Qué gasto quiere eliminar: ").strip()
         if not detalle_ingresado.strip():
             print(f"Ingresó campo vacío")
             return
         if detalle_ingresado.isnumeric():
             print("Debe ingresar texto")
             return
-        detalle_ingresado = detalle_ingresado.strip()
-        db.eliminar_gasto(detalle_ingresado)
+        fecha_ingresada = input("Ingrese la fecha:").strip()
+        if not fecha_ingresada:
+            print(f"{fecha_ingresada} no es un dato correcto")
+            return
+        db.eliminar_gasto(detalle_ingresado, fecha_ingresada)
+        # if not lista:
+        #         print(f"No hay gastos registrados el {fecha_ingresada}")
+        # else:
+        #     for gasto in lista:
+        #         detalle, importe, categoria, fecha = gasto
+        #         print(f"{detalle}: {importe} categoria: {categoria} - {fecha}")
     except Exception as e:
         print(f"{e}. Error.")
 

@@ -68,18 +68,18 @@ def actualizar_gasto(detalle_nuevo, importe, categoria, fecha, detalle):
             SET  detalle=?, importe=?, categoria=?, fecha=?
             WHERE detalle = ?  ''',( detalle_nuevo, importe, categoria, fecha, detalle))
             conexion.commit()
-        print(f"{cur.rowcount} filas modificadas")
+        print(f"{cur.rowcount} gastos modificados")
     except sqlite3.Error as e:
         print(f"Error en la base de datos {e}")
 
-def eliminar_gasto(detalle):
+def eliminar_gasto(detalle, fecha):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:   
             cur = conexion.cursor()
             cur.execute('''DELETE FROM gastos
-            WHERE detalle = ?  ''', (detalle,))
+            WHERE detalle = ?  and fecha = ?''', (detalle, fecha))
             conexion.commit()
-            print(f"{cur.rowcount} filas modificadas")
+            print(f"{cur.rowcount} gastos eliminados")
     except sqlite3.Error as e:
         print(f"Error en la base de datos {e}")
 

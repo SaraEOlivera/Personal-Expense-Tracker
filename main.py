@@ -5,25 +5,27 @@ def main():
     try:
         while salir == False:
             try:
-                lista_gastos = []
-                funciones.leer_archivo(lista_gastos)
-                funciones.ver_gastos(lista_gastos)
                 print("*********************")
-                print("Bienvenido al menu")
+                print("Bienvenido al menú")
+                print("*********************")
                 print("1. Agregar gasto")
-                print("2. Modificar un gasto")
-                print("3. Eliminar un gasto")
-                print("4. Calcular total de gastos")
-                print("5. Agrupar gastos")
+                print("2. Ver todos los gastos")
+                print("3. Ver gastos por fechas")
+                print("4. Modificar un gasto")
+                print("5. Eliminar un gasto")
+                print("6. Calcular total de gastos")
+                print("7. Agrupar gastos")
                 print("0. Salir")
 
                 opcion = int(input("Ingrese una opcion del menú: "))
                 match opcion:
-                    case 1: funciones.agregar_gasto()
-                    case 2: funciones.actualizar_gastos(lista_gastos)
-                    case 3: funciones.eliminar_gastos(lista_gastos)
-                    case 4: funciones.calcular_total(lista_gastos)
-                    case 5: funciones.agrupar_categorias(lista_gastos)
+                    case 1: funciones.agregar_gasto(2026, 2026)
+                    case 2: funciones.ver_gastos()
+                    case 3: funciones.ver_un_gasto()
+                    case 4: funciones.actualizar_gastos()
+                    case 5: funciones.eliminar_gastos()
+                    case 6: funciones.calcular_total()
+                    case 7: funciones.agrupar_categorias()
                     case 0: salir = True
                     case _: salir = True
             except ValueError:
