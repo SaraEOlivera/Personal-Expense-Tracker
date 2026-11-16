@@ -115,7 +115,7 @@ def eliminar_gastos():
         if detalle_ingresado.isnumeric():
             print("Debe ingresar texto")
             return
-        fecha_ingresada = input("Ingrese la fecha:").strip()
+        fecha_ingresada = input("Ingrese la fecha: ").strip()
         if not fecha_ingresada:
             print(f"{fecha_ingresada} no es un dato correcto")
             return
