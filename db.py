@@ -60,6 +60,19 @@ def ver_un_gasto(fecha):
     except sqlite3.Error as e:
         print(f"Error en la base de datos {e}")
 
+def ver_mes_anio(mes, anio):
+    try:
+        with sqlite3.connect("bd/registro_gastos.db") as conexion:
+            cur = conexion.cursor()
+            cur.execute('SELECT detalle, importe FROM gastos WHERE strftime("%Y", fecha) = ? AND strftime("%m", fecha) = ?', (mes, anio))
+
+            fila = cur.fetchall()
+            return fila
+    except sqlite3.OperationalError as e:
+        print(f"Error al ejecutar la operación: {e}")
+    except sqlite3.Error as e:
+        print(f"Error en la base de datos {e}")
+
 def actualizar_gasto(detalle_nuevo, importe, categoria, fecha, detalle):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:   

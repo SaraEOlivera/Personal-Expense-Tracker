@@ -130,7 +130,7 @@ def eliminar_gastos():
         print(f"{e}. Error.")
 
 def calcular_total():
-    print("CALCULAR TOTAL DE GASTOS")
+    print("CALCULAR TOTAL DE GASTOS INGRESADOS")
     lista = db.ver_gastos()
     if not lista:
         print("No hay gastos registrados para calcular")
@@ -142,6 +142,28 @@ def calcular_total():
             detalle, importe, categoria, fecha = gasto
             suma += importe
         print(f"Total: {suma}")
+
+def calcular_mensual():
+    print("CALCULAR TOTAL DE GASTOS MENSUALES")
+    mes_ingresado = input("Ingrese el mes del gasto: ")
+    mes_formateado = mes_ingresado.zfill(2)
+    anio_ingresado = input("Ingrese el año del gasto: ")
+    if not mes_formateado or not anio_ingresado:
+        print(f"{mes_formateado} o {anio_ingresado} no son datos correctos")
+        return
+    else:
+        lista = db.ver_mes_anio(mes_formateado, anio_ingresado)
+        # if not lista:
+        #     print(f"No hay gastos registrados el {mes_formateado} de {anio_ingresado}")
+        # else:
+        print("**********************************")
+        print(f"Gastos registrados el {mes_formateado} de {anio_ingresado}:")
+        suma = 0
+        for gasto in lista:
+            detalle, importe, categoria, fecha = gasto
+            suma += importe
+        print(f"{detalle}: {importe} - {fecha}")
+        print(f"Total gastos mensuales: {suma}")
 
 def agrupar_categorias():
     print("AGRUPAR GASTOS SEGÚN CATEGORÍA")

@@ -13,8 +13,9 @@ def main():
                 print("3. Ver gastos por fechas")
                 print("4. Modificar un gasto")
                 print("5. Eliminar un gasto")
-                print("6. Calcular total de gastos")
-                print("7. Agrupar gastos")
+                print("6. Calcular el total de los gastos registrados")
+                print("7. Calcular total de gastos de un mes")
+                print("8. Agrupar gastos")
                 print("0. Salir")
 
                 opcion = int(input("Ingrese una opcion del menú: "))
@@ -25,7 +26,8 @@ def main():
                     case 4: funciones.actualizar_gastos()
                     case 5: funciones.eliminar_gastos()
                     case 6: funciones.calcular_total()
-                    case 7: funciones.agrupar_categorias()
+                    case 7: funciones.calcular_mensual()
+                    case 8: funciones.agrupar_categorias()
                     case 0: salir = True
                     case _: salir = True
             except ValueError:
