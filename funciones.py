@@ -154,7 +154,7 @@ def calcular_mensual():
     else:
         lista = db.ver_mes_anio(mes_formateado, anio_ingresado)
         if not lista:
-            print(f"No hay gastos registrados el {mes_formateado} de {anio_ingresado}")
+            print(f"No hay gastos registrados el mes {mes_formateado} de {anio_ingresado}")
         else:
             print("**********************************")
             print(f"Gastos registrados el {mes_formateado} de {anio_ingresado}:")

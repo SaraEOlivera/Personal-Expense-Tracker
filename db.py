@@ -64,7 +64,7 @@ def ver_mes_anio(mes, anio):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:
             cur = conexion.cursor()
-            cur.execute('SELECT detalle, importe FROM gastos WHERE strftime("%Y", fecha) = ? AND strftime("%m", fecha) = ?', (mes, anio))
+            cur.execute('SELECT detalle, importe FROM gastos WHERE strftime("%m", fecha) = ? AND strftime("%Y", fecha) = ?', (mes, anio))
 
             fila = cur.fetchall()
             return fila
