@@ -12,7 +12,7 @@ def ver_gastos():
         print("Estos son los gastos registrados:")
         for gasto in lista:
             detalle, importe, categoria, fecha = gasto
-            print(f"{detalle}: {importe} categoria: {categoria} - {fecha}")
+            print(f"{detalle}: ${importe} categoria: {categoria} - {fecha}")
 
 def ver_un_gasto():
     print("VER GASTO REGISTRADO")
@@ -29,7 +29,7 @@ def ver_un_gasto():
         else:
             for gasto in lista:
                 detalle, importe, categoria, fecha = gasto
-                print(f"{detalle}: {importe} categoria: {categoria} - {fecha}")
+                print(f"{detalle}: ${importe} categoria: {categoria} - {fecha}")
 
 def agregar_gasto(anio_min:int, anio_max:int)-> str:
     print("AGREGAR UN GASTO:")
@@ -49,16 +49,15 @@ def agregar_gasto(anio_min:int, anio_max:int)-> str:
         if importe <= 0:
             print("El importe de gasto no puede ser 0 o un numero negativo")
             return
-        fecha = input(f"Ingrese la fecha del gasto (DD/MM/YYYY) entre {anio_min} y {anio_max}: ").strip()
+        fecha = input(f"Ingrese la fecha del gasto (DD-MM-YYYY) entre {anio_min} y {anio_max}: ").strip()
         try:
-            fecha_ingresada = datetime.strptime(fecha, "%d/%m/%Y")
-            # fecha_ingresada = date.fromisoformat(fecha)
+            fecha_ingresada = datetime.strptime(fecha, "%d-%m-%Y")
             if not (anio_min <= fecha_ingresada.year <= anio_max):
                 print(f"El año debe ser entre {anio_min} y {anio_max}")
                 return
-            fecha_modificada = fecha_ingresada.strftime("%Y/%m/%d")
+            fecha_modificada = fecha_ingresada.strftime("%Y-%m-%d")
         except ValueError:
-            print("Ingrese fecha con formato DD/MM/YYYY")
+            print("Ingrese fecha con formato DD-MM-YYYY")
             return
         db.insertar_gasto(detalle, importe, categoria, fecha_modificada)
         print(f"Gasto {detalle} registrado")
@@ -160,9 +159,9 @@ def calcular_mensual():
             print(f"Gastos registrados el {mes_formateado} de {anio_ingresado}:")
             suma = 0
             for gasto in lista:
-                detalle, importe, categoria, fecha = gasto
+                detalle, importe, = gasto
                 suma += importe
-            print(f"{detalle}: {importe} - {fecha}")
+                print(f"{detalle}: ${importe}")
             print(f"Total gastos mensuales: {suma}")
 
 def agrupar_categorias():

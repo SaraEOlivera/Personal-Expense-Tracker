@@ -41,7 +41,7 @@ def ver_gastos():
             cur.execute('SELECT detalle, importe, categoria, fecha FROM gastos')
             filas = cur.fetchall()
             # for fila in filas:
-            #     print(fila)
+            #     print("Aqui modifique", fila)
             return filas
     except sqlite3.OperationalError as e:
         print(f"Error al ejecutar la operacion: {e}")
@@ -64,9 +64,10 @@ def ver_mes_anio(mes, anio):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:
             cur = conexion.cursor()
-            cur.execute('SELECT detalle, importe FROM gastos WHERE strftime("%m", fecha) = ? AND strftime("%Y", fecha) = ?', (mes, anio))
+            cur.execute('SELECT detalle, importe FROM gastos WHERE strftime("%m", fecha) =? AND strftime("%Y", fecha) =?', (mes, anio))
 
             fila = cur.fetchall()
+            # print("aqui modifique", fila)
             return fila
     except sqlite3.OperationalError as e:
         print(f"Error al ejecutar la operación: {e}")
