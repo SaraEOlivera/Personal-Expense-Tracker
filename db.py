@@ -48,17 +48,56 @@ def ver_gastos():
     except sqlite3.Error as e:
         print(f"Error en la base de datos {e}")
 
-def ver_un_gasto(fecha):
+# def ver_un_gasto(fecha):
+#     try:
+#         with sqlite3.connect("bd/registro_gastos.db") as conexion:
+#             cur = conexion.cursor()
+#             cur.execute('SELECT detalle, importe, categoria, fecha FROM gastos WHERE fecha = ?', (fecha,))
+#             fila = cur.fetchall()
+#             return fila
+#     except sqlite3.OperationalError as e:
+#         print(f"Error al ejecutar la operacion: {e}")
+#     except sqlite3.Error as e:
+#         print(f"Error en la base de datos {e}")
+
+def buscar_gasto_mes(mes):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:
             cur = conexion.cursor()
-            cur.execute('SELECT detalle, importe, categoria, fecha FROM gastos WHERE fecha = ?', (fecha,))
+            cur.execute('SELECT detalle, importe FROM gastos WHERE strftime("%m", fecha) =? ', (mes,))
             fila = cur.fetchall()
             return fila
     except sqlite3.OperationalError as e:
-        print(f"Error al ejecutar la operacion: {e}")
+        print(f"Error al ejecutar la operación: {e}")
     except sqlite3.Error as e:
         print(f"Error en la base de datos {e}")
+
+def buscar_gasto_detalle(detalle):
+    try:
+        with sqlite3.connect("bd/registro_gastos.db") as conexion:
+            cur = conexion.cursor()
+            cur.execute('SELECT detalle, importe FROM gastos WHERE detalle =? ', (detalle,))
+            fila = cur.fetchall()
+            # print("aqui modifique", fila)
+
+            return fila
+    except sqlite3.OperationalError as e:
+        print(f"Error al ejecutar la operación: {e}")
+    except sqlite3.Error as e:
+        print(f"Error en la base de datos {e}")
+
+def buscar_gasto_categoria(categoria):
+    try:
+        with sqlite3.connect("bd/registro_gastos.db") as conexion:
+            cur = conexion.cursor()
+            cur.execute('SELECT detalle, importe FROM gastos WHERE categoria =? ', (categoria,))
+            fila = cur.fetchall()
+            return fila
+    except sqlite3.OperationalError as e:
+        print(f"Error al ejecutar la operación: {e}")
+    except sqlite3.Error as e:
+        print(f"Error en la base de datos {e}")
+
 
 def ver_mes_anio(mes, anio):
     try:

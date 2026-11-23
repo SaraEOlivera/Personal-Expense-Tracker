@@ -14,22 +14,90 @@ def ver_gastos():
             detalle, importe, categoria, fecha = gasto
             print(f"{detalle}: ${importe} categoria: {categoria} - {fecha}")
 
-def ver_un_gasto():
-    print("VER GASTO REGISTRADO")
-    fecha_ingresada = input("Ingrese la fecha:")
-    if not fecha_ingresada:
-        print(f"{fecha_ingresada} no es un dato correcto")
-        return
-    else:
-        lista = db.ver_un_gasto(fecha_ingresada)
-        print("**********************************")
-        print(f"Estos son los gastos registrados el {fecha_ingresada}:")
-        if not lista:
-                print(f"No hay gastos registrados el {fecha_ingresada}")
-        else:
-            for gasto in lista:
-                detalle, importe, categoria, fecha = gasto
-                print(f"{detalle}: ${importe} categoria: {categoria} - {fecha}")
+# def ver_un_gasto():
+#     print("VER GASTO REGISTRADO")
+#     fecha_ingresada = input("Ingrese la fecha: ")
+#     if not fecha_ingresada:
+#         print(f"{fecha_ingresada} no es un dato correcto")
+#         return
+#     else:
+#         lista = db.ver_un_gasto(fecha_ingresada)
+#         print("**********************************")
+#         print(f"Estos son los gastos registrados el {fecha_ingresada}:")
+#         if not lista:
+#                 print(f"No hay gastos registrados el {fecha_ingresada}")
+#         else:
+#             for gasto in lista:
+#                 detalle, importe, categoria, fecha = gasto
+#                 print(f"{detalle}: ${importe} categoria: {categoria} - {fecha}")
+
+def buscar_gastos():
+    salir = False
+    try:
+        while salir == False:
+            try:
+                print("BUSCAR GASTOS")
+                print("*********************")
+                print("1. Buscar gastos por fechas")
+                print("2. Buscar gastos por detalles")
+                print("3. Buscar gastos por categorías")
+                print("0. Volver al menú anterior")
+
+                opcion = int(input("Ingrese una opcion para buscar gastos: "))
+                if opcion == 1:
+                    mes = input("Ingrese el mes del gasto: ")
+                    mes_formateado = mes.zfill(2)
+                    if not mes_formateado:
+                        print(f"{mes_formateado} no es un dato correcto")
+                        return
+                    else:
+                        lista = db.buscar_gasto_mes(mes_formateado)
+                        if not lista:
+                            print(f"No hay gastos registrados el mes {mes_formateado}")
+                        else:
+                            print("**********************************")
+                            print(f"Gastos registrados el {mes_formateado}:")
+                            for gasto in lista:
+                                detalle, importe = gasto
+                                print(f"{detalle}: ${importe}")
+
+
+                elif opcion == 2:
+                    detalle = input("Ingrese el detalle de los gastos que busca: ")
+                    lista = db.buscar_gasto_detalle(detalle)
+                    if not lista:
+                        print("No hay gastos registrados")
+                    else:
+                        print("**********************************")
+                        print(f"Estos son los gastos registrados con detalle {detalle}:")
+                        for gasto in lista:
+                            detalle, importe = gasto
+                            print(f"{detalle}: ${importe} ")
+
+                elif opcion == 3:
+                    categoria = input("Ingrese la categoria de los gastos que busca: ")
+                    lista = db.buscar_gasto_categoria(categoria)
+                    if not lista:
+                        print("No hay gastos registrados")
+                    else:
+                        print("**********************************")
+                        print(f"Estos son los gastos registrados con categoría {categoria}:")
+                        for gasto in lista:
+                            detalle, importe = gasto
+                            print(f"{detalle}: ${importe} ")
+
+                elif opcion == 0:
+                    salir = True
+                else:
+                    salir = True
+            except ValueError:
+                print("Elegir una opción para buscar gastos.")
+            except Exception as e:
+                print(f"{e}. Error.")
+    except KeyboardInterrupt:
+        print("Interrupió las opciones")
+    finally:
+        print("Vuelve al menu anterior")
 
 def agregar_gasto(anio_min:int, anio_max:int)-> str:
     print("AGREGAR UN GASTO:")

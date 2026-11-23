@@ -10,7 +10,7 @@ def main():
                 print("*********************")
                 print("1. Agregar gasto")
                 print("2. Ver todos los gastos")
-                print("3. Ver gastos por fechas")
+                print("3. Buscar gastos")
                 print("4. Modificar un gasto")
                 print("5. Eliminar un gasto")
                 print("6. Calcular el total de los gastos registrados")
@@ -22,7 +22,7 @@ def main():
                 match opcion:
                     case 1: funciones.agregar_gasto(2026, 2026)
                     case 2: funciones.ver_gastos()
-                    case 3: funciones.ver_un_gasto()
+                    case 3: funciones.buscar_gastos()
                     case 4: funciones.actualizar_gastos()
                     case 5: funciones.eliminar_gastos()
                     case 6: funciones.calcular_total()
