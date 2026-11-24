@@ -48,23 +48,11 @@ def ver_gastos():
     except sqlite3.Error as e:
         print(f"Error en la base de datos {e}")
 
-# def ver_un_gasto(fecha):
-#     try:
-#         with sqlite3.connect("bd/registro_gastos.db") as conexion:
-#             cur = conexion.cursor()
-#             cur.execute('SELECT detalle, importe, categoria, fecha FROM gastos WHERE fecha = ?', (fecha,))
-#             fila = cur.fetchall()
-#             return fila
-#     except sqlite3.OperationalError as e:
-#         print(f"Error al ejecutar la operacion: {e}")
-#     except sqlite3.Error as e:
-#         print(f"Error en la base de datos {e}")
-
-def buscar_gasto_mes(mes):
+def buscar_gasto_mes(mes, anio):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:
             cur = conexion.cursor()
-            cur.execute('SELECT detalle, importe FROM gastos WHERE strftime("%m", fecha) =? ', (mes,))
+            cur.execute('SELECT detalle, importe, fecha FROM gastos WHERE strftime("%m", fecha) =? AND strftime("%Y", fecha) =?', (mes, anio))
             fila = cur.fetchall()
             return fila
     except sqlite3.OperationalError as e:
@@ -76,7 +64,7 @@ def buscar_gasto_detalle(detalle):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:
             cur = conexion.cursor()
-            cur.execute('SELECT detalle, importe FROM gastos WHERE detalle =? ', (detalle,))
+            cur.execute('SELECT detalle, importe, fecha FROM gastos WHERE detalle LIKE ? ', (f"%{detalle}%",))
             fila = cur.fetchall()
             # print("aqui modifique", fila)
 
@@ -90,14 +78,14 @@ def buscar_gasto_categoria(categoria):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:
             cur = conexion.cursor()
-            cur.execute('SELECT detalle, importe FROM gastos WHERE categoria =? ', (categoria,))
+            cur.execute('SELECT detalle, importe, fecha FROM gastos WHERE categoria LIKE ? ', (f"%{categoria}%",))
             fila = cur.fetchall()
+            # print("aqui modifique", fila)
             return fila
     except sqlite3.OperationalError as e:
         print(f"Error al ejecutar la operación: {e}")
     except sqlite3.Error as e:
         print(f"Error en la base de datos {e}")
-
 
 def ver_mes_anio(mes, anio):
     try:

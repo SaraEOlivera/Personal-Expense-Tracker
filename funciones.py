@@ -14,22 +14,6 @@ def ver_gastos():
             detalle, importe, categoria, fecha = gasto
             print(f"{detalle}: ${importe} categoria: {categoria} - {fecha}")
 
-# def ver_un_gasto():
-#     print("VER GASTO REGISTRADO")
-#     fecha_ingresada = input("Ingrese la fecha: ")
-#     if not fecha_ingresada:
-#         print(f"{fecha_ingresada} no es un dato correcto")
-#         return
-#     else:
-#         lista = db.ver_un_gasto(fecha_ingresada)
-#         print("**********************************")
-#         print(f"Estos son los gastos registrados el {fecha_ingresada}:")
-#         if not lista:
-#                 print(f"No hay gastos registrados el {fecha_ingresada}")
-#         else:
-#             for gasto in lista:
-#                 detalle, importe, categoria, fecha = gasto
-#                 print(f"{detalle}: ${importe} categoria: {categoria} - {fecha}")
 
 def buscar_gastos():
     salir = False
@@ -45,21 +29,28 @@ def buscar_gastos():
 
                 opcion = int(input("Ingrese una opcion para buscar gastos: "))
                 if opcion == 1:
-                    mes = input("Ingrese el mes del gasto: ")
-                    mes_formateado = mes.zfill(2)
-                    if not mes_formateado:
+                    mes_ingresado = input("Ingrese el mes del gasto: ")
+                    mes_formateado = mes_ingresado.zfill(2)
+                    if int(mes_formateado) < 1 or int(mes_formateado) > 12:
+                        print(f"No ingresó el mes correcto: {mes_formateado}")
+                        return
+                    anio = input("Ingrese el año del gasto: ")
+                    if int(anio) < 2025 or int(anio) > 2026:
+                        print(f"No ingresó el año correcto: {anio}")
+                        return
+                    if not mes_formateado or not anio:
                         print(f"{mes_formateado} no es un dato correcto")
                         return
                     else:
-                        lista = db.buscar_gasto_mes(mes_formateado)
+                        lista = db.buscar_gasto_mes(mes_formateado, anio)
                         if not lista:
-                            print(f"No hay gastos registrados el mes {mes_formateado}")
+                            print(f"No hay gastos registrados el mes {mes_formateado} de {anio}")
                         else:
                             print("**********************************")
-                            print(f"Gastos registrados el {mes_formateado}:")
+                            print(f"Gastos registrados el {mes_formateado} de {anio}:")
                             for gasto in lista:
-                                detalle, importe = gasto
-                                print(f"{detalle}: ${importe}")
+                                detalle, importe, fecha = gasto
+                                print(f"{detalle}: ${importe} - {fecha}")
 
 
                 elif opcion == 2:
@@ -71,8 +62,8 @@ def buscar_gastos():
                         print("**********************************")
                         print(f"Estos son los gastos registrados con detalle {detalle}:")
                         for gasto in lista:
-                            detalle, importe = gasto
-                            print(f"{detalle}: ${importe} ")
+                            detalle, importe, fecha = gasto
+                            print(f"{detalle}: ${importe} - {fecha}")
 
                 elif opcion == 3:
                     categoria = input("Ingrese la categoria de los gastos que busca: ")
@@ -83,8 +74,8 @@ def buscar_gastos():
                         print("**********************************")
                         print(f"Estos son los gastos registrados con categoría {categoria}:")
                         for gasto in lista:
-                            detalle, importe = gasto
-                            print(f"{detalle}: ${importe} ")
+                            detalle, importe, fecha = gasto
+                            print(f"{detalle}: ${importe} - {fecha}")
 
                 elif opcion == 0:
                     salir = True
@@ -187,12 +178,6 @@ def eliminar_gastos():
             print(f"{fecha_ingresada} no es un dato correcto")
             return
         db.eliminar_gasto(detalle_ingresado, fecha_ingresada)
-        # if not lista:
-        #         print(f"No hay gastos registrados el {fecha_ingresada}")
-        # else:
-        #     for gasto in lista:
-        #         detalle, importe, categoria, fecha = gasto
-        #         print(f"{detalle}: {importe} categoria: {categoria} - {fecha}")
     except Exception as e:
         print(f"{e}. Error.")
 
