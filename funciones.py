@@ -29,12 +29,12 @@ def buscar_gastos():
 
                 opcion = int(input("Ingrese una opcion para buscar gastos: "))
                 if opcion == 1:
-                    mes_ingresado = input("Ingrese el mes del gasto: ")
+                    mes_ingresado = input("Ingrese el mes del gasto: ").strip()
                     mes_formateado = mes_ingresado.zfill(2)
                     if int(mes_formateado) < 1 or int(mes_formateado) > 12:
                         print(f"No ingresó el mes correcto: {mes_formateado}")
                         return
-                    anio = input("Ingrese el año del gasto: ")
+                    anio = input("Ingrese el año del gasto: ").strip()
                     if int(anio) < 2025 or int(anio) > 2026:
                         print(f"No ingresó el año correcto: {anio}")
                         return
@@ -54,10 +54,10 @@ def buscar_gastos():
 
 
                 elif opcion == 2:
-                    detalle = input("Ingrese el detalle de los gastos que busca: ")
+                    detalle = input("Ingrese el detalle de los gastos que busca: ").strip()
                     lista = db.buscar_gasto_detalle(detalle)
                     if not lista:
-                        print("No hay gastos registrados")
+                        print(f"No hay gastos registrados con el detalle {detalle}")
                     else:
                         print("**********************************")
                         print(f"Estos son los gastos registrados con detalle {detalle}:")
@@ -66,10 +66,10 @@ def buscar_gastos():
                             print(f"{detalle}: ${importe} - {fecha}")
 
                 elif opcion == 3:
-                    categoria = input("Ingrese la categoria de los gastos que busca: ")
+                    categoria = input("Ingrese la categoria de los gastos que busca: ").strip()
                     lista = db.buscar_gasto_categoria(categoria)
                     if not lista:
-                        print("No hay gastos registrados")
+                        print(f"No hay gastos registrados bajo la categoría {categoria}")
                     else:
                         print("**********************************")
                         print(f"Estos son los gastos registrados con categoría {categoria}:")
@@ -199,7 +199,13 @@ def calcular_mensual():
     print("CALCULAR TOTAL DE GASTOS MENSUALES")
     mes_ingresado = input("Ingrese el mes del gasto: ")
     mes_formateado = mes_ingresado.zfill(2)
+    if int(mes_formateado) < 1 or int(mes_formateado) > 12:
+        print(f"No se ingresó un mes correcto: {mes_formateado}")
+        return
     anio_ingresado = input("Ingrese el año del gasto: ")
+    if int(anio_ingresado) < 2026 or int(anio_ingresado) > 2026:
+        print(f"{anio_ingresado} no es un año registrado")
+        return
     if not mes_formateado or not anio_ingresado:
         print(f"{mes_formateado} o {anio_ingresado} no son datos correctos")
         return

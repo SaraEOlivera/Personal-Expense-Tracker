@@ -38,7 +38,7 @@ def ver_gastos():
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:
             cur = conexion.cursor()
-            cur.execute('SELECT detalle, importe, categoria, fecha FROM gastos')
+            cur.execute('SELECT detalle, importe, categoria, fecha FROM gastos ORDER BY fecha')
             filas = cur.fetchall()
             # for fila in filas:
             #     print("Aqui modifique", fila)
@@ -52,7 +52,7 @@ def buscar_gasto_mes(mes, anio):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:
             cur = conexion.cursor()
-            cur.execute('SELECT detalle, importe, fecha FROM gastos WHERE strftime("%m", fecha) =? AND strftime("%Y", fecha) =?', (mes, anio))
+            cur.execute('SELECT detalle, importe, fecha FROM gastos WHERE strftime("%m", fecha) =? AND strftime("%Y", fecha) =? ORDER BY fecha', (mes, anio))
             fila = cur.fetchall()
             return fila
     except sqlite3.OperationalError as e:
@@ -64,7 +64,7 @@ def buscar_gasto_detalle(detalle):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:
             cur = conexion.cursor()
-            cur.execute('SELECT detalle, importe, fecha FROM gastos WHERE detalle LIKE ? ', (f"%{detalle}%",))
+            cur.execute('SELECT detalle, importe, fecha FROM gastos WHERE detalle LIKE ? ORDER BY fecha', (f"%{detalle}%",))
             fila = cur.fetchall()
             # print("aqui modifique", fila)
 
@@ -78,7 +78,7 @@ def buscar_gasto_categoria(categoria):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:
             cur = conexion.cursor()
-            cur.execute('SELECT detalle, importe, fecha FROM gastos WHERE categoria LIKE ? ', (f"%{categoria}%",))
+            cur.execute('SELECT detalle, importe, fecha FROM gastos WHERE categoria LIKE ? ORDER BY fecha', (f"%{categoria}%",))
             fila = cur.fetchall()
             # print("aqui modifique", fila)
             return fila
@@ -91,7 +91,7 @@ def ver_mes_anio(mes, anio):
     try:
         with sqlite3.connect("bd/registro_gastos.db") as conexion:
             cur = conexion.cursor()
-            cur.execute('SELECT detalle, importe FROM gastos WHERE strftime("%m", fecha) =? AND strftime("%Y", fecha) =?', (mes, anio))
+            cur.execute('SELECT detalle, importe FROM gastos WHERE strftime("%m", fecha) =? AND strftime("%Y", fecha) =? ORDER BY fecha', (mes, anio))
 
             fila = cur.fetchall()
             # print("aqui modifique", fila)
